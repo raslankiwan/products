@@ -31,7 +31,7 @@ export default class LoginForm extends React.Component {
             })
             .then(response => response.json())
             .then(json => { 
-                if (json.status === 'Success') {
+                if (json.status === 'success') {
                     localStorage.setItem('user', JSON.stringify({email, password}));
                     // to clear localStorage.clear()
                     let path = `/home`

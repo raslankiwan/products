@@ -63,6 +63,16 @@ export default class AddForm extends React.Component {
         let url = `${localStorage.getItem('url_g')}/upload_image`
         postRequest(url, formData, 'POST', this.onSuccess, this.onFail)
     }
+    
+    update() {
+        const { name, desc, exp, prod, id } = this.state
+        var jsonObj = {
+            name, desc, exp, prod
+          }
+        let url_g = localStorage.getItem('url_g')
+        var url = `${url_g}/post_item/${id}`;
+        postRequest(url, jsonObj, 'POST', this.onSuccess, this.onFail)
+    }
 
     render() {
         return(
@@ -103,6 +113,8 @@ export default class AddForm extends React.Component {
 
 
                 <button onClick={()=> this.uploadImage()}> Upload Image </button> 
+                <button onClick={()=> this.update()}> Update Item </button> 
+
             </div>
         );
     }
