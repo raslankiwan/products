@@ -38,7 +38,7 @@ export default class Homepage extends React.Component {
                   () => {
                       return <HomeContent/>
                   }
-              } />
+                } />
                 
                 <Route path="/Add" exact strict component={AddForm} />
             </div>

@@ -30,8 +30,7 @@ export default class HomeContent extends React.Component {
             this.state.products.length === 0 ? 
             <div>No items available</div>
             :
-            <div>
-                
+            <div>                
                 {this.state.products.map((item) => {
                 return (
                     <div key={item.ID} style={styles.rowItem}>
