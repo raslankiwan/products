@@ -11,7 +11,8 @@ export default class AddForm extends React.Component {
             desc: '',
             prod: '',
             exp: '',
-            addErr: ''
+            addErr: '',
+            img: null
         }
 
         this.onSuccess = this.onSuccess.bind(this)
@@ -51,6 +52,18 @@ export default class AddForm extends React.Component {
         postRequest(url, jsonObj, 'PUT', this.onSuccess, this.onFail)
     }
 
+    viewImg(event) {
+        this.setState({
+            img: URL.createObjectURL(event.target.files[0])
+        })
+    }
+
+    uploadImage() {
+        const formData = new FormData(this.state.img)
+        let url = `${localStorage.getItem('url_g')}/upload_image`
+        postRequest(url, formData, 'POST', this.onSuccess, this.onFail)
+    }
+
     render() {
         return(
             <div style={styles.container}>
@@ -82,6 +95,14 @@ export default class AddForm extends React.Component {
                 
                 {this.state.addErr !== '' && <div>{this.state.addErr}</div>}
                 <button onClick={()=> this.doPut()}> Add Item </button> 
+
+
+                <input type="file" onChange={(event) => this.viewImg(event)}/> 
+
+                {this.state.img && <img alt="Text" style={{width: 100, height:100}} src={this.state.img} />}
+
+
+                <button onClick={()=> this.uploadImage()}> Upload Image </button> 
             </div>
         );
     }
