@@ -6,17 +6,15 @@ import Homepage from './components/Homepage';
 
 class App extends React.Component {
 
-  state = {
-      loggedIn: false,
-      v: 7,
-      vert: false,
+  componentDidMount() {
+    localStorage.setItem('url_g', 'http://localhost:8080')
   }
 
   render() {
     return (
       <Router>
           <Route exact path="/home" component={Homepage} />
-          <Route path="/" component={LoginForm} />
+          <Route exact path="/" component={LoginForm} />
       </Router>
     );
   }

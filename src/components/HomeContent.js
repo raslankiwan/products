@@ -1,6 +1,8 @@
 import React from 'react'
 import { postRequest } from '../requestFetch'
-export default class HomeContent extends React.Component {
+import { withRouter } from 'react-router-dom'
+
+class HomeContent extends React.Component {
 
     constructor() {
         super()
@@ -13,7 +15,8 @@ export default class HomeContent extends React.Component {
     }
 
     componentDidMount() {
-        var url = "http://127.0.0.1:8080/get_item";
+        let url_g = localStorage.getItem('url_g')
+        var url = `${url_g}/get_item`
         postRequest(url, null, 'GET', this.onSuccess, this.onFail)
     }
 
@@ -25,6 +28,14 @@ export default class HomeContent extends React.Component {
 
     }
 
+    onItemClicked(item) {
+
+        this.props.history.push({
+            pathname: '/Add',
+            state : {item}
+        });
+    }
+
     render() {
         return(
             this.state.products.length === 0 ? 
@@ -34,7 +45,7 @@ export default class HomeContent extends React.Component {
                 
                 {this.state.products.map((item) => {
                 return (
-                    <div key={item.ID} style={styles.rowItem}>
+                    <div key={item.ID} style={styles.rowItem} onClick= {() => {this.onItemClicked(item)}} >
                         Product #{item.ID}  <br/>
                         Name:   <input type="text" value={item.Name} onChange={(event) => {
                                     item.Name= event.target.value}
@@ -69,3 +80,5 @@ const styles = {
         borderStyle: 'solid'
     }
 }
+
+export default withRouter (HomeContent);

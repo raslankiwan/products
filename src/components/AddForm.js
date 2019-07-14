@@ -18,6 +18,19 @@ export default class AddForm extends React.Component {
         this.onFail = this.onFail.bind(this)
     }
 
+    componentDidMount() {
+        if(this.props.location && this.props.location.state && this.props.location.state.item) {
+            let item = this.props.location.state.item
+            this.setState({
+                name: item.Name,
+                id: item.ID,
+                desc: item.Description, 
+                prod: item.Production, 
+                exp: item.Expiration
+            })
+        }
+        
+    }
 
     onSuccess() {
         let path = `/home`
@@ -33,7 +46,8 @@ export default class AddForm extends React.Component {
         var jsonObj = {
           name, desc, exp, prod
         }
-        var url = "http://127.0.0.1:8080/add_item/"+id;
+        let url_g = localStorage.getItem('url_g')
+        var url = `${url_g}/add_item/${id}`;
         postRequest(url, jsonObj, 'PUT', this.onSuccess, this.onFail)
     }
 
@@ -60,7 +74,8 @@ export default class AddForm extends React.Component {
                     this.setState({prod: event.target.value, emailErr:''})}
                     }>
                 </input>
-                Expiration:<input type="date" value={this.state.exp} onChange={(event) => {
+                
+                Expiration:<input type="date" defaultValue={this.state.exp} onChange={(event) => {
                     this.setState({exp: event.target.value, emailErr:''})}
                     }>
                 </input>
