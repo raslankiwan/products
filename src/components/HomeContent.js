@@ -12,6 +12,7 @@ class HomeContent extends React.Component {
         }
 
         this.onSuccess = this.onSuccess.bind(this)
+        this.onDeleteSuccess = this.onDeleteSuccess.bind(this)
         this.onFail = this.onFail.bind(this)
     }
 
@@ -22,7 +23,14 @@ class HomeContent extends React.Component {
     }
 
     onSuccess(json) {
+        
         this.setState({products: json.data})
+    }
+
+    onDeleteSuccess(json) {
+        let url_g = localStorage.getItem('url_g')
+        var url = `${url_g}/get_item`
+        postRequest(url, null, 'GET', this.onSuccess, this.onFail)
     }
 
     onFail(json) {
@@ -33,7 +41,7 @@ class HomeContent extends React.Component {
         //const id = this.state.id
         let url_g = localStorage.getItem('url_g')
         var url = `${url_g}/delete_item/${dID}`;
-        postRequest(url, null, 'DELETE', this.onSuccess, this.onFail)
+        postRequest(url, null, 'DELETE', this.onDeleteSuccess, this.onFail)
     }
 
     onItemClicked(item) {
@@ -46,11 +54,11 @@ class HomeContent extends React.Component {
     //onClick= {() => {this.onItemClicked(item)}}
     render() {
         return(
-            this.state.products.length === 0 ? 
+            this.state.products && this.state.products.length === 0 ? 
             <div>No items available</div>
             :
             <div>                
-                {this.state.products.map((item) => {
+                {this.state.products && this.state.products.map((item) => {
                 return (
                     <div key={item.ID} style={styles.rowItem}>
                         Product#:   <input type="text" value={item.ID} onChange={(event) => {
