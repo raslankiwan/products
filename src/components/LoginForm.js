@@ -17,7 +17,7 @@ export default class LoginForm extends React.Component {
         } else if (password === '') {
             this.setState({passwordErr: true})
         } else {
-            let url = 'http://localhost:8080/auth'
+            let url = localStorage.getItem('url_g') + '/auth'
             let body = {
                 email, password
             }
@@ -33,6 +33,7 @@ export default class LoginForm extends React.Component {
             .then(json => { 
                 if (json.status === 'success') {
                     localStorage.setItem('user', JSON.stringify({email, password}));
+                    // to clear localStorage.clear()
                     let path = `/home`
                     this.props.history.push(path);
                 } else {
