@@ -13,9 +13,9 @@ export const postRequest = (url, data, method, callBackSuccess, callBackFail) =>
     })
     .then(response => response.json())
     .then(json => {  
-        if (json.result === 'success') {
+        if (json.status === 'success') {
             callBackSuccess(json) 
-        } else if (json.result === 'failed') {
+        } else if (json.status === 'failed') {
             callBackFail(json)
         }
     })

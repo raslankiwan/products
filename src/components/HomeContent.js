@@ -7,7 +7,8 @@ class HomeContent extends React.Component {
     constructor() {
         super()
         this.state = {
-            products: []
+            products: [],
+            id: ''
         }
 
         this.onSuccess = this.onSuccess.bind(this)
@@ -28,6 +29,13 @@ class HomeContent extends React.Component {
 
     }
 
+    delete(dID) {
+        //const id = this.state.id
+        let url_g = localStorage.getItem('url_g')
+        var url = `${url_g}/delete_item/${dID}`;
+        postRequest(url, null, 'DELETE', this.onSuccess, this.onFail)
+    }
+
     onItemClicked(item) {
 
         this.props.history.push({
@@ -35,7 +43,7 @@ class HomeContent extends React.Component {
             state : {item}
         });
     }
-
+    //onClick= {() => {this.onItemClicked(item)}}
     render() {
         return(
             this.state.products.length === 0 ? 
@@ -44,8 +52,12 @@ class HomeContent extends React.Component {
             <div>                
                 {this.state.products.map((item) => {
                 return (
-                    <div key={item.ID} style={styles.rowItem} onClick= {() => {this.onItemClicked(item)}} >
-                        Product #{item.ID}  <br/>
+                    <div key={item.ID} style={styles.rowItem}>
+                        Product#:   <input type="text" value={item.ID} onChange={(event) => {
+                            this.setState({id: event.target.value})
+                            }
+                            }>  
+                            </input><br/>
                         Name:   <input type="text" value={item.Name} onChange={(event) => {
                                     item.Name= event.target.value}
                                     }>  
@@ -57,12 +69,13 @@ class HomeContent extends React.Component {
                         Production: <input type="date" value={item.Production} onChange={(event) => {
                                         item.Production= event.target.value}
                                     }>  
-                                     </input><br/>
+                                    </input><br/>
                         Expiration: <input type="date" value={item.Expiration} onChange={(event) => {
                                         item.Expiration= event.target.value}
                                         }>  
-                                     </input><br/>
+                                    </input><br/>
                         Available? {item.Available === 0 ? <input type="checkbox" unchecked></input> :<input type="checkbox" checked> </input>} <br/>
+                        <button onClick={()=> this.delete(item.ID)}> Delete </button> 
                     </div>
                 )
                 })}
@@ -76,7 +89,7 @@ const styles = {
         borderColor: '#d6d7da',
         borderWidth: 5,
         borderRadius: 3,
-        borderStyle: 'solid'
+        borderStyle: 'solid',
     }
 }
 

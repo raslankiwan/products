@@ -51,6 +51,16 @@ export default class AddForm extends React.Component {
         postRequest(url, jsonObj, 'PUT', this.onSuccess, this.onFail)
     }
 
+    update() {
+        const { name, desc, exp, prod, id } = this.state
+        var jsonObj = {
+            name, desc, exp, prod
+          }
+        let url_g = localStorage.getItem('url_g')
+        var url = `${url_g}/post_item/${id}`;
+        postRequest(url, jsonObj, 'POST', this.onSuccess, this.onFail)
+    }
+
     render() {
         return(
             <div style={styles.container}>
@@ -82,6 +92,8 @@ export default class AddForm extends React.Component {
                 
                 {this.state.addErr !== '' && <div>{this.state.addErr}</div>}
                 <button onClick={()=> this.doPut()}> Add Item </button> 
+                <button onClick={()=> this.update()}> Update Item </button> 
+
             </div>
         );
     }
