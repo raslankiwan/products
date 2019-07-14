@@ -3,7 +3,6 @@ import {BrowserRouter as Router, Route } from 'react-router-dom'
 import './App.css';
 import LoginForm from './components/LoginForm';
 import Homepage from './components/Homepage';
-import { PrivateRoute } from './components/PrivateRoute';
 
 class App extends React.Component {
 
@@ -16,8 +15,8 @@ class App extends React.Component {
   render() {
     return (
       <Router>
-          <PrivateRoute exact path="/" component={Homepage} />
-          <Route path="/login" component={LoginForm} />
+          <Route exact path="/home" component={Homepage} />
+          <Route path="/" component={LoginForm} />
       </Router>
     );
   }

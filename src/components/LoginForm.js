@@ -33,7 +33,7 @@ export default class LoginForm extends React.Component {
             .then(json => { 
                 if (json.status === 'Success') {
                     localStorage.setItem('user', JSON.stringify({email, password}));
-                    let path = `/`
+                    let path = `/home`
                     this.props.history.push(path);
                 } else {
                     this.setState({authErr: true})
