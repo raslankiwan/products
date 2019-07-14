@@ -30,7 +30,6 @@ class HomeContent extends React.Component {
     }
 
     delete(dID) {
-        //const id = this.state.id
         let url_g = localStorage.getItem('url_g')
         var url = `${url_g}/delete_item/${dID}`;
         postRequest(url, null, 'DELETE', this.onSuccess, this.onFail)
