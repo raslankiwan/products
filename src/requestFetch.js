@@ -1,6 +1,6 @@
 export const postRequest = (url, data, method, callBackSuccess, callBackFail) => {
     let body = null;
-    if (method !== 'GET') {
+    if (method !== 'GET' && method !== 'DELETE') {
         body = JSON.stringify(data);
     } 
     
