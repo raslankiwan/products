@@ -13,9 +13,15 @@ export default class AddForm extends React.Component {
             prod: '',
             exp: '',
             addErr: '',
+<<<<<<< HEAD
             img: null,
             available: true,
             isChecked: false
+=======
+            file_url: null,
+            imageName: null,
+            imageSource: null,
+>>>>>>> 1c2c95b5835a2e12a374b476463cc56a67a818a7
         }
 
         this.onSuccess = this.onSuccess.bind(this)
@@ -75,15 +81,32 @@ export default class AddForm extends React.Component {
     }
 
     viewImg(event) {
+        let file = event.target.files[0]
+        let file_url = URL.createObjectURL(file)
         this.setState({
-            img: URL.createObjectURL(event.target.files[0])
+            imageName: file.name,
+            imageSource: file,
+            file_url,
+             
         })
     }
 
     uploadImage() {
-        const formData = new FormData(this.state.img)
+        const formData = new FormData()
+        formData.append('file', this.state.imageSource)
+       // console.log('image: ', this.state.imageSource)
+        formData.append('name', this.state.imageName)
+        for (var data of formData) {
+            console.log(data);
+          }
+        var jsonObj = {
+            formData,
+            name: this.state.imageName
+        }
+
+        console.log(jsonObj)
         let url = `${localStorage.getItem('url_g')}/upload_image`
-        postRequest(url, formData, 'POST', this.onSuccess, this.onFail)
+        postRequest(url, jsonObj, 'POST', this.onSuccess, this.onFail)
     }
     
     update() {
@@ -134,7 +157,7 @@ export default class AddForm extends React.Component {
             
                 <input type="file" style={{marginTop:20}} onChange={(event) => this.viewImg(event)}/> 
 
-                {this.state.img && <img alt="Text" style={{width: 100, height:100}} src={this.state.img} />}
+                {this.state.file_url && <img alt="Text" style={{width: 100, height:100}} src={this.state.file_url} />}
 
 
                 <button onClick={()=> this.uploadImage()}> Upload Image </button> 
