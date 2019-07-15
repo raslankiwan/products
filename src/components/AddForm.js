@@ -68,10 +68,14 @@ export default class AddForm extends React.Component {
     uploadImage() {
         const formData = new FormData()
         formData.append('file', this.state.imageSource)
-        console.log('image: ', this.state.imageSource)
+       // console.log('image: ', this.state.imageSource)
         formData.append('name', this.state.imageName)
+        for (var data of formData) {
+            console.log(data);
+          }
         var jsonObj = {
-            formData
+            formData,
+            name: this.state.imageName
         }
 
         console.log(jsonObj)
