@@ -1,4 +1,7 @@
 import React from 'react'
+import '../App.css'
+import logo from '../logo2.png'
+import { black } from 'ansi-colors';
 
 export default class LoginForm extends React.Component {
     state = {
@@ -48,48 +51,28 @@ export default class LoginForm extends React.Component {
 
     render() {
         return(
-            <div style={styles.container}>
-            <div style={styles.form}>
+            <div className="App2">
                 <div>
-                    {this.state.emailErr ? <div>Please type a valid email</div> : null }
-                    <label style={{width:'30px'}}>Email:</label> <input type="email" value={this.state.email} onChange={(event) => {
-                        this.setState({email: event.target.value, emailErr:''})}
-                    } />
+                    <img style={{width:500, marginLeft:30,marginTop:50}}
+                    src={logo}
+                    alt=""
+                    />
                 </div>
+                <div className="login" style={{marginRight:60}}>
+                        {this.state.emailErr ? <div>Please type a valid email</div> : null }
+                        <input type="email" placeholder="Enter E-mail" value={this.state.email} onChange={(event) => {
+                            this.setState({email: event.target.value, emailErr:''})}
+                        } />
 
-                <div>
-                    {this.state.passwordErr ? <div>Please type a password</div> : null }
-                    <label style={{width:'30px'}}>Password:</label> <input type="password" value={this.state.password} onChange={(event) => {
-                        this.setState({password: event.target.value, passwordErr:''})}
-                    }/>
-                </div>
+                        {this.state.passwordErr ? <div>Please type a password</div> : null }
+                        <input type="password" placeholder="Enter Password" value={this.state.password} onChange={(event) => {
+                            this.setState({password: event.target.value, passwordErr:''})}
+                        }/>
 
-                <div>
-                    {this.state.authErr ? <div>Authentication failed</div> : null }
-                    <button onClick={this.logIn.bind(this)}> Log in</button>
+                        {this.state.authErr ? <div>Authentication failed</div> : null }
+                        <button style={{backgroundColor:black}} onClick={this.logIn.bind(this)}> Log in</button>
                 </div>
-            </div>
             </div>
         );
     }
-}
-
-const styles = {
-    "container": {
-        flexDirection: 'column',
-        top:0,
-        left:0,
-        right:0,
-        bottom:0,
-        flex: 1,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        margin: 'auto',
-    },
-    "form": {
-        // flexDirection: 'column',
-       
-    }, 
-   
 }

@@ -22,13 +22,13 @@ export default class Homepage extends React.Component {
                 <ul className='nav' >
                     <li >
                         <NavLink to="/home" exact activeStyle={
-                            { color: 'green' }
+                            { color: 'red' }
                         }>Home</NavLink>
                     </li>
                     
                     <li>
                         <NavLink to="/Add" exact activeStyle={
-                            { color: 'green' }
+                            { color: 'red' }
                         }>Add</NavLink>
                     </li>
                     
