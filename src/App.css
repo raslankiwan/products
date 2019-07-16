@@ -4,7 +4,7 @@
 
 .App2 {
   text-align: center;
-  background-color: #c9b2b277;
+  background-color: #66666677;
   min-height: 100vh;
   display: flex;
   flex-direction: row;
@@ -154,9 +154,9 @@ ul.nav li.lr {
   font-size: 15px;
 }
 
-.item >  label,input {
+.item > input {
   width: 200px;
-  height: px;
+  height: 20px;
   text-align-last: center;
   
 }

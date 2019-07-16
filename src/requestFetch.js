@@ -6,7 +6,7 @@ export const postRequest = (url, data, method, callBackSuccess, callBackFail) =>
     
     return fetch(url, {
         method: method,
-        body,
+        body:body,        
         headers: new Headers({
             'Content-Type': 'application/json'
         }),

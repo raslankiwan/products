@@ -13,15 +13,16 @@ export default class AddForm extends React.Component {
             prod: '',
             exp: '',
             addErr: '',
-<<<<<<< HEAD
             img: null,
-            available: true,
-            isChecked: false
-=======
+            available: '',
+            isChecked: false,
             file_url: null,
             imageName: null,
             imageSource: null,
->>>>>>> 1c2c95b5835a2e12a374b476463cc56a67a818a7
+
+            isUploading: false,
+            isUploaded: false, 
+            jsonResponse: {}
         }
 
         this.onSuccess = this.onSuccess.bind(this)
@@ -69,7 +70,18 @@ export default class AddForm extends React.Component {
         postRequest(url, jsonObj, 'PUT', this.onSuccess, this.onFail)
     }
 
+    update() {
+        const { name, desc, exp, prod, id, available } = this.state
+        var jsonObj = {
+            name, desc, exp, prod, available
+          }
+        let url_g = localStorage.getItem('url_g')
+        var url = `${url_g}/post_item/${id}`;
+        postRequest(url, jsonObj, 'POST', this.onSuccess, this.onFail)
+    }
+
     checkAvailable =(event) => {
+        console.log(event.target.checked)
         if(event.target.checked) {
             this.setState(prvs => { return {available:!prvs.available, isChecked:!prvs.isChecked};})
             console.log(this.state.available)
@@ -86,38 +98,30 @@ export default class AddForm extends React.Component {
         this.setState({
             imageName: file.name,
             imageSource: file,
-            file_url,
+            file_url: file_url,
              
         })
     }
 
     uploadImage() {
-        const formData = new FormData()
-        formData.append('file', this.state.imageSource)
-       // console.log('image: ', this.state.imageSource)
-        formData.append('name', this.state.imageName)
-        for (var data of formData) {
-            console.log(data);
-          }
-        var jsonObj = {
-            formData,
-            name: this.state.imageName
-        }
+        let url = "http://localhost:8080/upload_image";
+        const data = new FormData(); 
+        data.append("file", this.state.imageSource); 
+        data.append("imageName", this.state.imageName);
+        this.setState({ isUploaded: false, isUploading: true })
 
-        console.log(jsonObj)
-        let url = `${localStorage.getItem('url_g')}/upload_image`
-        postRequest(url, jsonObj, 'POST', this.onSuccess, this.onFail)
-    }
-    
-    update() {
-        const { name, desc, exp, prod, id, available } = this.state
-        var jsonObj = {
-            name, desc, exp, prod, available
-          }
-        let url_g = localStorage.getItem('url_g')
-        var url = `${url_g}/post_item/${id}`;
-        postRequest(url, jsonObj, 'POST', this.onSuccess, this.onFail)
-    }
+        fetch(url, { 
+            method: 'post', 
+            body: data 
+        }).then(response => { alert(response); return response.json(); }) 
+            .then(json => { 
+                this.setState({ isUploading: false, jsonResponse: json, isUploaded: true }) 
+            }).catch((error) => { 
+                console.log(error); 
+                alert("error:" + error)
+                this.setState({ isUploading: false }); 
+            });    
+    }   
 
     render() {
         return(
@@ -147,7 +151,7 @@ export default class AddForm extends React.Component {
                     this.setState({exp: event.target.value, emailErr:''})}
                     }>
                 </input>
-                Available?<input type="checkbox" checked={this.state.isChecked} onClick={this.checkAvailable} >                        
+                Available?<input type="checkbox" defaultChecked={this.state.isChecked} onClick={this.checkAvailable} >                        
                 </input>
                 
                 {this.state.addErr !== '' && <div>{this.state.addErr}</div>}
@@ -155,9 +159,9 @@ export default class AddForm extends React.Component {
                 <button onClick={()=> this.update()}> Update Item </button>
 
             
-                <input type="file" style={{marginTop:20}} onChange={(event) => this.viewImg(event)}/> 
+                <input type="file" name='file' style={{marginTop:20}} onChange={(event) => this.viewImg(event)}/> 
 
-                {this.state.file_url && <img alt="Text" style={{width: 100, height:100}} src={this.state.file_url} />}
+                {this.state.imageName && <img alt="Text" style={{width: 100, height:100}} src={this.state.file_url} />}
 
 
                 <button onClick={()=> this.uploadImage()}> Upload Image </button> 
