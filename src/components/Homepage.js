@@ -4,7 +4,6 @@ import '../App.css';
 import AddForm from './AddForm';
 import HomeContent from './HomeContent';
 import LoginForm from './LoginForm';
-import App from '../App'
 
 export default class Homepage extends React.Component {
     state = {
@@ -33,7 +32,7 @@ export default class Homepage extends React.Component {
                         }>Add</NavLink>
                     </li>
                     <li>
-                        <NavLink to="/App" exact activeStyle={
+                        <NavLink to="/" exact activeStyle={
                             { color: 'red' }
                         }>Logout</NavLink>
                     </li>
@@ -47,7 +46,7 @@ export default class Homepage extends React.Component {
                 } />
                 
                 <Route path="/Add" exact strict component={AddForm} />
-                <Route path="/App" exact strict component={App}/>
+                <Route path="/" exact strict component={LoginForm}/>
             </div>
           </Router>
         );
