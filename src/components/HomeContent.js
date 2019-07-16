@@ -50,7 +50,9 @@ class HomeContent extends React.Component {
             state : {item}
         });
     }
+
     render() {
+        // let url = `${localStorage.getItem('url_g')}/load_image`
         return(
             this.state.products && this.state.products.length === 0 ? 
             <div>No items available</div>
@@ -85,6 +87,8 @@ class HomeContent extends React.Component {
                                             item.Available= event.target.value}
                                             }>  
                                         </input><br/>
+                                        
+                            <img alt="Text" style={{width: 100, height:100}} src={"http://localhost:8080/load_image?src="+item.image} />
                         </div>
                         <div>                            
                             <button onClick={()=> this.delete(item.ID)}> Delete </button> 
