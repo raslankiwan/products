@@ -136,6 +136,28 @@ ul.nav li.lr {
     background-color: rgb(248, 248, 198);
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.container > input {
+  width: 200px;
+  height: 20px;
+  text-align-last: center;
+  margin-bottom: 2px;
+}
+
+.container > input[type=date] {
+  width: 199px;
+  height: 22px;
+  text-align-last: right;
+  font-size:15px;
+}
+
 .login {
   display: flex;
   flex-direction: column;
@@ -154,19 +176,60 @@ ul.nav li.lr {
   font-size: 15px;
 }
 
+.item {
+  display: flex;
+  flex-direction: column;
+
+}
+
 .item > input {
   width: 200px;
   height: 20px;
-  text-align-last: center;
-  
+  text-align-last: center;   
+}
+
+.item > input[type=date] {
+  width: 199px;
+  height: 22px;
+  text-align-last: right;
+  font-size:15px;
 }
 
 .rowItem {
+  display: flex;
+  flex-direction: column;
   border-color: #70737983;
   border-width: 3px;
   border-radius: 3px;
   border-style: solid;
   Padding: 10px;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.labels {
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+  margin-top: 3px;
+}
+
+.labels > label {
+  height: 25px;
+}
+
+.buttons > button {
+  width: 100px;
+}
+
+.items {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 @keyframes App-logo-spin {

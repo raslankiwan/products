@@ -125,19 +125,16 @@ export default class AddForm extends React.Component {
 
     render() {
         return(
-            <div style={styles.container}>
+            <div className="container">
                 <h4>Add new item</h4>
-            
+                ProductID: <input type="number"  value={this.state.id} onChange={(event) => {
+                    this.setState({id: event.target.value, emailErr:''})}
+                    }>
+                </input>            
                 Name: <input type="text" value={this.state.name} onChange={(event) => {
                     this.setState({name: event.target.value, emailErr:''})}
                     }>
                 </input>
-
-                ID: <input type="number"  value={this.state.id} onChange={(event) => {
-                    this.setState({id: event.target.value, emailErr:''})}
-                    }>
-                </input>
-
                 Description:<input type="textarea" value={this.state.desc} onChange={(event) => {
                     this.setState({desc: event.target.value, emailErr:''})}
                     }>
@@ -151,7 +148,7 @@ export default class AddForm extends React.Component {
                     this.setState({exp: event.target.value, emailErr:''})}
                     }>
                 </input>
-                Available?<input type="checkbox" defaultChecked={this.state.isChecked} onClick={this.checkAvailable} >                        
+                Available?<input type="checkbox" checked={this.state.isChecked} onClick={this.checkAvailable} >                        
                 </input>
                 
                 {this.state.addErr !== '' && <div>{this.state.addErr}</div>}
@@ -170,20 +167,4 @@ export default class AddForm extends React.Component {
             </div>
         );
     }
-}
-
-const styles = {
-    "container": {
-        flexDirection: 'column',
-        top:0,
-        left:0,
-        right:0,
-        bottom:0,
-        flex: 1,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        margin: 'auto',
-    },
-   
 }

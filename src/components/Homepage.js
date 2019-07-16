@@ -3,6 +3,8 @@ import {BrowserRouter as Router, NavLink, Route } from 'react-router-dom'
 import '../App.css';
 import AddForm from './AddForm';
 import HomeContent from './HomeContent';
+import LoginForm from './LoginForm';
+import App from '../App'
 
 export default class Homepage extends React.Component {
     state = {
@@ -24,12 +26,16 @@ export default class Homepage extends React.Component {
                         <NavLink to="/home" exact activeStyle={
                             { color: 'red' }
                         }>Home</NavLink>
-                    </li>
-                    
+                    </li>                    
                     <li>
                         <NavLink to="/Add" exact activeStyle={
                             { color: 'red' }
                         }>Add</NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/App" exact activeStyle={
+                            { color: 'red' }
+                        }>Logout</NavLink>
                     </li>
                     
                 </ul>
@@ -41,6 +47,7 @@ export default class Homepage extends React.Component {
                 } />
                 
                 <Route path="/Add" exact strict component={AddForm} />
+                <Route path="/App" exact strict component={App}/>
             </div>
           </Router>
         );
