@@ -108,8 +108,9 @@ export default class AddForm extends React.Component {
         const data = new FormData(); 
         data.append("file", this.state.imageSource); 
         data.append("imageName", this.state.imageName);
+        data.append("id", this.state.id);
         this.setState({ isUploaded: false, isUploading: true })
-
+        
         fetch(url, { 
             method: 'post', 
             body: data 

@@ -55,12 +55,11 @@ class HomeContent extends React.Component {
         postRequest(url, null, 'DELETE', this.onDeleteSuccess, this.onFail)
     }
 
-    update() {
-        const { name, desc, exp, prod, id, available } = this.state
+    update(item) {
+        const { name, desc, exp, prod, id, available } = item
         var jsonObj = {
             name, desc, exp, prod, available
-          }
-        console.log(name)
+        }
         let url_g = localStorage.getItem('url_g')
         var url = `${url_g}/post_item/${id}`;
         postRequest(url, jsonObj, 'POST', this.onUpdateSuccess, this.onFail)
@@ -73,6 +72,7 @@ class HomeContent extends React.Component {
             state : {item}
         });
     }
+
     render() {
         return(
             this.state.products && this.state.products.length === 0 ? 
@@ -80,6 +80,14 @@ class HomeContent extends React.Component {
             :
             <div>                
                 {this.state.products && this.state.products.map((item) => {
+                   let currentItem = {
+                        id:item.ID,
+                        name: item.Name,
+                        desc: item.Description,
+                        prod: item.Production,
+                        exp: item.Expiration,
+                        available: item.Available
+                    }
                 return (
                     <div className="rowItem">
                         <div className="items">
@@ -91,43 +99,58 @@ class HomeContent extends React.Component {
                                 <label>Expiration:</label>
                                 <label>Available:</label>
                             </div>
-
                             <div className="item" key={item.ID}>
                                 <input type="number" value={item.ID} onChange={(event) => {
                                     item.ID= event.target.value
-                                    this.setState({id: event.target.value})}
+                                    this.setState({id: event.target.value})
+                                    currentItem.id = event.target.value
+                                }
                                     }>  
                                 </input>
                                 <input type="text" value={item.Name} onChange={(event) => {
                                     item.Name= event.target.value
-                                    this.setState({name: event.target.value})}
+                                    this.setState({name: event.target.value})
+                                    currentItem.name = event.target.value
+                                }
                                     }>  
                                 </input>
                                 <input type="text" value={item.Description} onChange={(event) => {
                                     item.Description= event.target.value
-                                    this.setState({desc: event.target.value})}
+                                    this.setState({desc: event.target.value})
+                                    currentItem.desc = event.target.value
+                                }
                                     }>  
                                 </input>
                                 <input type="date" value={item.Production} onChange={(event) => {
                                     item.Production= event.target.value
-                                    this.setState({prod: event.target.value})}
+                                    this.setState({prod: event.target.value})
+                                    currentItem.prod = event.target.value
+                                }
                                     }>  
                                 </input>
                                 <input type="date" value={item.Expiration} onChange={(event) => {
                                     item.Expiration= event.target.value
-                                    this.setState({exp: event.target.value})}
+                                    this.setState({exp: event.target.value})
+                                    currentItem.exp = event.target.value
+                                }
                                     }>  
                                 </input>
                                 <input type="text" value={item.Available} onChange={(event) => {
                                     item.Available= event.target.value
-                                    this.setState({available: event.target.value})}
+                                    this.setState({available: event.target.value})
+                                    currentItem.available = event.target.value
+                                }
                                     }>  
                                 </input>
+                            </div>
+                            <div className="imag" onClick= {() => {this.onItemClicked(item)}}>
+                                <img alt="Text" style={{width: 200, height:130}} src={"http://localhost:8080/load_image?src="+item.image}/>
                             </div>
                         </div>    
                         <div className="buttons">                            
                             <button style={{marginRight:10}} onClick={()=> this.delete(item.ID)}> Delete </button> 
-                            <button onClick={()=> this.update()}> Update </button>
+                            <button onClick={()=> this.update(currentItem)}> Update </button>
+
                         </div> 
                     </div>                   
                 )
