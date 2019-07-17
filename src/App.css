@@ -179,7 +179,6 @@ ul.nav li.lr {
 .item {
   display: flex;
   flex-direction: column;
-
 }
 
 .item > input {
@@ -216,6 +215,7 @@ ul.nav li.lr {
   flex-direction: column;
   margin-right: 20px;
   margin-top: 3px;
+  margin-left: 300px;
 }
 
 .labels > label {
@@ -230,6 +230,14 @@ ul.nav li.lr {
   display: flex;
   flex-direction: row;
   justify-content: center;
+}
+
+.imag {
+  display: flex;
+  justify-content: flex-end;
+  align-self: flex-end;
+  margin-left: 100px;
+  width: 300px;
 }
 
 @keyframes App-logo-spin {

@@ -56,18 +56,23 @@ export default class AddForm extends React.Component {
         this.props.history.push(path);
     }
 
+    onnSuccess() {
+        
+    }
+
     onFail() {
         this.setState({addErr: 'Something went wrong'})
     }
  
     doPut() {
         const { name, desc, exp, prod, id, available } = this.state
+        console.log(available)
         var jsonObj = {
           name, desc, exp, prod, available
         }
         let url_g = localStorage.getItem('url_g')
         var url = `${url_g}/add_item/${id}`;
-        postRequest(url, jsonObj, 'PUT', this.onSuccess, this.onFail)
+        postRequest(url, jsonObj, 'PUT', this.onnSuccess, this.onFail)
     }
 
     update() {
@@ -83,11 +88,11 @@ export default class AddForm extends React.Component {
     checkAvailable =(event) => {
         console.log(event.target.checked)
         if(event.target.checked) {
-            this.setState(prvs => { return {available:!prvs.available, isChecked:!prvs.isChecked};})
+            this.setState(prvs => { return {available:'Yes', isChecked:!prvs.isChecked};})
             console.log(this.state.available)
         }
         else {
-            this.setState(prvs => { return {available:!prvs.available, isChecked:!prvs.isChecked};})
+            this.setState(prvs => { return {available:'No', isChecked:!prvs.isChecked};})
             console.log(this.state.available)
         }
     }
@@ -116,12 +121,14 @@ export default class AddForm extends React.Component {
             body: data 
         }).then(response => { alert(response); return response.json(); }) 
             .then(json => { 
-                this.setState({ isUploading: false, jsonResponse: json, isUploaded: true }) 
-            }).catch((error) => { 
+                this.setState({ isUploading: false, jsonResponse: json, isUploaded: true })                     
+            })
+            .then(() => this.onSuccess())
+            .catch((error) => { 
                 console.log(error); 
                 alert("error:" + error)
                 this.setState({ isUploading: false }); 
-            });    
+            });              
     }   
 
     render() {
